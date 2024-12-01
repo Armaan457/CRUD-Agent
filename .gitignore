@@ -1,0 +1,5 @@
+__pycache__
+env
+.env
+foods/db.sqlite3
+migrations

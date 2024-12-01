@@ -1,0 +1,8 @@
+Django
+djangorestframework
+drf-yasg
+langchain
+langchain_mistralai 
+langchain_core
+langchain_community
+streamlit
