@@ -20,20 +20,21 @@ swagger_response = requests.get(swagger_url)
 
 if swagger_response.status_code == 200:
     try:
-        swagger_json = swagger_response.json()
-    except requests.exceptions.JSONDecodeError:
-        print("Failed to decode JSON.")
+        swagger_text = swagger_response.text
+    except:
+        print("API Invalid")
 else:
-    print(f"Failed to fetch Swagger JSON. Status code: {swagger_response.status_code}")
+    print(f"Failed to fetch Swagger docs. Status code: {swagger_response.status_code}")
+
 
 prompt = ChatPromptTemplate.from_messages(
     [
         (
             "system",
             "You are an intelligent assistant that helps users manage their database. You can create, read, update, and delete records using the provided REST APIs. Ensure to execute each CRUD operation only once."
-            "Firstly understand the type of request carefully and then use the relevant tool"
-            "In case of create operation, send name, description and price in json as request"
-            "In case of update operation, firstly retrieve the old info then send the request with the updated values"
+            "During the update operation, do not change any other info other than requested by the user, first retrieve info about the item then send the update request with the new info"
+            "Use the given OpenAPI doc to understand the API and make the necessary api calls"
+            f"OpenAPI doc: {{swagger_text}}"
         ),
         ("placeholder", "{chat_history}"),
         ("human", "{input}"),
@@ -51,6 +52,7 @@ if "messages" not in st.session_state:
     st.session_state["messages"] = [
         {"role": "assistant", "content": "Hi I am a chatbot that perform CRUD operations on a db. How can I help you today?"}
     ]
+
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
 
@@ -61,7 +63,7 @@ if prompt:= st.chat_input(placeholder="What is your question?"):
     with st.chat_message("assistant"):
         st_cb = StreamlitCallbackHandler(st.container(), expand_new_thoughts=False, collapse_completed_thoughts = False)
         response = agent_executor.invoke(
-            {"input": prompt}, {"callbacks": [st_cb]}
+            {"input": prompt, "swagger_text" : swagger_text}, {"callbacks": [st_cb]}
         )
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        st.session_state.messages.append({"role": "assistant", "content": response["output"]})
         st.write(response["output"])   

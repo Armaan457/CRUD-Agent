@@ -49,13 +49,13 @@ create_tool = Tool(
 )
 
 retrieve_tool = Tool(
-    name="orderId",
+    name="RetrieveProduct",
     func=APITool("retrieve"),
     description='Retrieves a product by its "id".'
 )
 
 update_tool = Tool(
-    name="UpdateOrderStatus",
+    name="UpdateProduct",
     func=APITool("update"),
     description='Updates a product by its "name" and provided "description", or "price"'
 )
