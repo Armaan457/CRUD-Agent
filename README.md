@@ -1,5 +1,5 @@
 ## CRUD Agent
-An chatbot agent that can automatically perform CRUD operations on a custom made REST API via simple messaging.
+An chatbot agent that can automatically perform CRUD operations using a custom made REST API via simple messaging.
 
 # Technologies used
 **Framework**: LangChain <br>
@@ -28,7 +28,14 @@ Install dependencies:
 > pip install -r requirements.txt
 ```
 
-Run the development server:
+Run the API server in the correct directory:
+
+```sh
+> cd foods
+> python manage.py runserver
+```
+
+Run the app server:
 
 ```sh
 > streamlit run app.py
