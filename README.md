@@ -1,11 +1,11 @@
 ## CRUD Agent
-An chatbot agent that can automatically perform CRUD operations using a custom made REST API via simple messaging.
+An intelligent agent that can automatically perform CRUD operations using a custom made REST API via simple messaging.
 
 # Technologies used
-**Framework**: LangChain <br>
+**Frameworks**: LangChain and LangGraph<br>
 **Web Interface**: Streamlit <br>
-**LLM**: Mistral Small <br>
-**REST API**: Django REST and Swagger(for OpenAPI docs) <br>
+**LLM**: Mistral <br>
+**REST API**: Django REST and Swagger (for OpenAPI docs) <br>
 
 # Setup
 
@@ -35,11 +35,18 @@ Run the API server in the correct directory:
 > python manage.py runserver
 ```
 
-Run the app server:
+Run the app server (LangChain or LangGraph):
 
 ```sh
-> streamlit run app.py
+> cd LangChain_Agent
+> streamlit run langchain_app.py
+```
+or
+```sh
+> cd LangGraph_Agent
+> streamlit run langgraph_app.py
 ```
 
+
 # Example
-For demonstration, I have made REST APIs for performing CRUD operations on a SQL db for a Django project `foods`. In the `tools.py` the neccessary tools are defined and the Agent lies in the `app.py` file.
+For demonstration, I have made REST APIs for performing CRUD operations on a SQL db for a Django project `foods`.

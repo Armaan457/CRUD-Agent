@@ -6,3 +6,4 @@ langchain_mistralai
 langchain_core
 langchain_community
 streamlit
+langgraph
