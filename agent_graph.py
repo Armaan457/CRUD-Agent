@@ -1,4 +1,4 @@
-import os
+import streamlit as st
 from typing import Annotated, Sequence
 from typing_extensions import TypedDict
 from langchain_core.messages import BaseMessage
@@ -10,13 +10,10 @@ from langchain_mistralai import ChatMistralAI
 from langgraph.graph import END, StateGraph
 from langgraph.graph.message import add_messages
 from langgraph.prebuilt.tool_node import ToolNode
-from dotenv import load_dotenv
-
-load_dotenv()
 
 
 def build_agent_graph(api_spec):
-    mistral_api_key = os.getenv("MISTRAL_API_KEY")
+    mistral_api_key = st.secrets("MISTRAL_API_KEY")
     llm = ChatMistralAI(model="mistral-small-2506", api_key=mistral_api_key)
     toolkit = RequestsToolkit(requests_wrapper=TextRequestsWrapper(headers={}), allow_dangerous_requests=True)
     tools = toolkit.get_tools()
